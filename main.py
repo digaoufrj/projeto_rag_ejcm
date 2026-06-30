@@ -21,6 +21,7 @@ Fluxo:
 
 from __future__ import annotations
 
+import argparse
 import json
 import logging
 import time
@@ -100,29 +101,97 @@ def gerar_requisitos_individuais(
     return requisitos_por_persona
 
 
+def carregar_requisitos_individuais(caminho: Path) -> dict:
+    """Carrega requisitos individuais já gerados (modo skip-simulator).
+
+    Args:
+        caminho: Caminho do JSON com `{nome_persona: requisitos}`.
+
+    Returns:
+        Dicionário com os requisitos por persona.
+    """
+    if not caminho.exists():
+        raise FileNotFoundError(
+            f"Arquivo {caminho} não encontrado. Gere-o rodando o simulador "
+            "ou forneça um JSON com `{nome_persona: requisitos}`."
+        )
+    with caminho.open("r", encoding="utf-8") as f:
+        return json.load(f)
+
+
+def parse_args() -> argparse.Namespace:
+    """Define e processa argumentos de linha de comando."""
+    parser = argparse.ArgumentParser(
+        description="Pipeline RAG-EJCM: personas → simulador → consolidador."
+    )
+    parser.add_argument(
+        "--skip-simulator",
+        action="store_true",
+        help=(
+            "Pula a etapa do simulador e carrega requisitos já prontos "
+            "de --requisitos (padrão: requisitos_individuais.json)."
+        ),
+    )
+    parser.add_argument(
+        "--requisitos",
+        type=Path,
+        default=REQUISITOS_INDIVIDUAIS_JSON,
+        help=(
+            "Caminho do JSON com requisitos já gerados "
+            f"(default: {REQUISITOS_INDIVIDUAIS_JSON.name})."
+        ),
+    )
+    parser.add_argument(
+        "--query-rag",
+        default=QUERY_RAG_PADRAO,
+        help="Consulta usada para buscar contexto no RAG.",
+    )
+    parser.add_argument(
+        "--top-k",
+        type=int,
+        default=5,
+        help="Número de trechos recuperados do RAG (default: 5).",
+    )
+    return parser.parse_args()
+
+
 def main() -> None:
-    """Executa o pipeline completo: personas → simulador → consolidador."""
+    """Executa o pipeline RAG-EJCM.
+
+    Modos:
+        * Padrão: personas → simulador → consolidador
+        * --skip-simulator: carrega requisitos prontos → consolidador
+    """
+    args = parse_args()
     logger.info("=== Iniciando pipeline RAG-EJCM ===")
 
-    # 1) Personas
-    personas = carregar_personas()
-    logger.info("Personas carregadas (%d): %s",
-                len(personas), list(personas.keys()))
+    # 1) Requisitos por persona (gerados ou carregados)
+    if args.skip_simulator:
+        logger.info("Modo SKIP-SIMULATOR: carregando requisitos de %s",
+                    args.requisitos.name)
+        requisitos_por_persona = carregar_requisitos_individuais(args.requisitos)
+        logger.info("Requisitos carregados para %d personas: %s",
+                    len(requisitos_por_persona),
+                    list(requisitos_por_persona.keys()))
+    else:
+        personas = carregar_personas()
+        logger.info("Personas carregadas (%d): %s",
+                    len(personas), list(personas.keys()))
+        simulador = SimuladorStakeholder(model="gemini-3.5-flash")
+        requisitos_por_persona = gerar_requisitos_individuais(
+            personas, simulador
+        )
 
-    # 2) Simulador — gera requisitos para cada persona
-    simulador = SimuladorStakeholder(model="gemini-3.5-flash")
-    requisitos_por_persona = gerar_requisitos_individuais(personas, simulador)
-
-    # 3) Consolidador — unifica tudo em um documento final
+    # 2) Consolidador — unifica tudo em um documento final
     logger.info("Consolidando requisitos com apoio do RAG...")
     consolidador = ConsolidadorRequisitos(model="gemini-3.5-flash")
     documento_final = consolidador.consolidar(
         requisitos_por_persona=requisitos_por_persona,
-        query_rag=QUERY_RAG_PADRAO,
-        top_k=5,
+        query_rag=args.query_rag,
+        top_k=args.top_k,
     )
 
-    # 4) Saída
+    # 3) Saída
     print("\n" + "=" * 70)
     print(" DOCUMENTO FINAL CONSOLIDADO ")
     print("=" * 70 + "\n")

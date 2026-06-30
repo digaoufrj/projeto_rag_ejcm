@@ -70,14 +70,44 @@ projeto_rag_ejcm/
 2. Todos os requisitos são unificados pelo **Consolidador**, que também consulta a base de conhecimento via RAG
 3. Saída final: documento único em Markdown
 
-## ▶️ Executar Pipeline Completo
+## ▶️ Executar Pipeline
+
+### Modo 1: Pipeline completo (personas → simulador → consolidador)
 
 ```bash
 python main.py
 ```
 
+### Modo 2: Pular o simulador (já tenho os requisitos prontos)
+
+Útil quando você já gerou os requisitos individuais e só quer consolidar:
+
+```bash
+# Usa requisitos_individuais.json (padrão)
+python main.py --skip-simulator
+
+# Ou aponte para um JSON customizado
+python main.py --skip-simulator --requisitos meus_requisitos.json
+```
+
+O JSON deve seguir o formato:
+```json
+{
+  "nome_persona_1": "1. Requisito A\n2. Requisito B...",
+  "nome_persona_2": "1. Requisito C\n2. Requisito D..."
+}
+```
+
+### Outras opções
+
+```bash
+python main.py --help                          # ver todas as flags
+python main.py --query-rag "minha consulta"    # query custom para o RAG
+python main.py --top-k 10                      # mais trechos do RAG
+```
+
 **Arquivos gerados:**
-- `requisitos_individuais.json` — requisitos por persona (auditoria)
+- `requisitos_individuais.json` — requisitos por persona (gerado pelo simulador)
 - `requisitos_consolidados.md` — documento final unificado
 
 ## 🧪 Testar Módulos Individualmente
