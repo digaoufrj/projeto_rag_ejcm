@@ -21,6 +21,7 @@ from __future__ import annotations
 
 import logging
 import os
+import shutil
 from pathlib import Path
 from typing import List
 
@@ -140,6 +141,7 @@ def _get_embeddings() -> GoogleGenerativeAIEmbeddings:
 def inicializar_banco_vetorial(
     diretorio_persistencia: Path = DIRETORIO_CHROMA,
     diretorio_documentos: Path = DIRETORIO_DOCUMENTOS,
+    force_rebuild: bool = False,
 ) -> Chroma:
     """Inicializa (ou carrega) o ChromaDB persistido em disco.
 
@@ -150,6 +152,7 @@ def inicializar_banco_vetorial(
     Args:
         diretorio_persistencia: Pasta onde o ChromaDB é/será gravado.
         diretorio_documentos: Pasta com os arquivos-fonte (PDF/TXT).
+        force_rebuild: Se True, apaga o banco existente e reconstrói do zero.
 
     Returns:
         Instância de `Chroma` pronta para uso.
@@ -158,6 +161,12 @@ def inicializar_banco_vetorial(
     diretorio_persistencia.mkdir(parents=True, exist_ok=True)
 
     banco_existente = any(diretorio_persistencia.iterdir())
+
+    if force_rebuild and banco_existente:
+        logger.warning("Reconstrução forçada: apagando banco existente...")
+        shutil.rmtree(diretorio_persistencia)
+        diretorio_persistencia.mkdir(parents=True, exist_ok=True)
+        banco_existente = False
 
     if banco_existente:
         logger.info("Banco vetorial existente encontrado. Carregando de %s ...",
@@ -245,6 +254,8 @@ def buscar_contexto_ejcm(query: str, top_k: int = 3) -> str:
 # ---------------------------------------------------------------------------
 
 if __name__ == "__main__":
+    import sys
+
     DIRETORIO_DOCUMENTOS.mkdir(parents=True, exist_ok=True)
 
     print("=" * 70)
@@ -256,12 +267,33 @@ if __name__ == "__main__":
     print(">> Coloque arquivos .pdf ou .txt em "
           f"'{DIRETORIO_DOCUMENTOS.name}/' antes de rodar a primeira vez.")
     print(">> Certifique-se de ter exportado GOOGLE_API_KEY no ambiente.")
+    print(">> Use --rebuild para forçar reconstrução do banco vetorial.")
     print()
+
+    force_rebuild = "--rebuild" in sys.argv
+
+    if force_rebuild:
+        print("⚠️  Modo REBUILD ativado: banco será reconstruído do zero.\n")
 
     query_teste = "O que é a EJCM e quais serviços ela oferece?"
     print(f"Consulta de teste: {query_teste!r}\n")
 
-    contexto = buscar_contexto_ejcm(query_teste, top_k=3)
+    vectordb = inicializar_banco_vetorial(force_rebuild=force_rebuild)
+    resultados = vectordb.similarity_search(query_teste, k=3)
+
+    if not resultados:
+        contexto = ""
+    else:
+        blocos = []
+        for i, doc in enumerate(resultados, start=1):
+            fonte = doc.metadata.get("source", "desconhecida")
+            pagina = doc.metadata.get("page")
+            cabecalho = f"[Trecho {i} | Fonte: {fonte}"
+            if pagina is not None:
+                cabecalho += f" | Página: {pagina}"
+            cabecalho += "]"
+            blocos.append(f"{cabecalho}\n{doc.page_content.strip()}")
+        contexto = "\n\n---\n\n".join(blocos)
 
     print("-" * 70)
     if contexto:

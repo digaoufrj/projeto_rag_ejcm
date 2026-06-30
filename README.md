@@ -40,12 +40,57 @@ Obtenha sua chave em: https://aistudio.google.com/app/apikey
 
 ```
 projeto_rag_ejcm/
-├── base_conhecimento_ejcm/    # Coloque seus PDFs e TXTs aqui
-├── chroma_db/                 # Banco vetorial (gerado automaticamente)
-├── rag_retriever.py           # Módulo principal
-├── requirements.txt           # Dependências Python
-├── .env                       # Variáveis de ambiente (NÃO commitar)
-└── .env.example               # Template de configuração
+├── base_conhecimento_ejcm/        # PDFs e TXTs da base de conhecimento
+├── chroma_db/                     # Banco vetorial (gerado automaticamente)
+├── agents/                        # Agentes LLM do pipeline
+│   ├── __init__.py
+│   ├── simulador.py               # Simulador de Stakeholders
+│   └── consolidador.py            # Consolidador de Requisitos
+├── personas.json                  # Descrições das personas (stakeholders)
+├── rag_retriever.py               # Módulo de Retrieval (RAG)
+├── main.py                        # Orquestrador do pipeline completo
+├── requirements.txt               # Dependências Python
+├── .env                           # Variáveis de ambiente (NÃO commitar)
+└── .env.example                   # Template de configuração
+```
+
+## 🔄 Fluxo do Sistema
+
+```
+    [personas.json]
+          ↓
+    [Simulador] x N personas → requisitos individuais por persona
+          ↓
+    [Consolidador] ← contexto do RAG (base de conhecimento da EJCM)
+          ↓
+    requisitos_consolidados.md
+```
+
+1. **Simulador** roda uma vez por persona, gerando requisitos individuais
+2. Todos os requisitos são unificados pelo **Consolidador**, que também consulta a base de conhecimento via RAG
+3. Saída final: documento único em Markdown
+
+## ▶️ Executar Pipeline Completo
+
+```bash
+python main.py
+```
+
+**Arquivos gerados:**
+- `requisitos_individuais.json` — requisitos por persona (auditoria)
+- `requisitos_consolidados.md` — documento final unificado
+
+## 🧪 Testar Módulos Individualmente
+
+```bash
+# Apenas o RAG
+python rag_retriever.py
+
+# Apenas o Simulador (roda para todas as personas)
+python -m agents.simulador
+
+# Apenas o Consolidador (com requisitos mock)
+python -m agents.consolidador
 ```
 
 ## 💻 Uso

@@ -2,3 +2,5 @@ venv/
 chroma_db/
 .env
 __pycache__/
+requisitos_consolidados.md
+requisitos_individuais.json
