@@ -39,7 +39,7 @@ logger = logging.getLogger("main")
 BASE_DIR = Path(__file__).parent.resolve()
 PERSONAS_JSON = BASE_DIR / "personas.json"
 REQUISITOS_INDIVIDUAIS_JSON = BASE_DIR / "requisitos_individuais.json"
-DOCUMENTO_FINAL_MD = BASE_DIR / "requisitos_consolidados.md"
+DOCUMENTO_FINAL_MD = BASE_DIR / "requisitos_consolidados_3.md"
 
 DELAY_ENTRE_PERSONAS_S = 5  # rate-limit suave entre chamadas ao Gemini
 QUERY_RAG_PADRAO = (
