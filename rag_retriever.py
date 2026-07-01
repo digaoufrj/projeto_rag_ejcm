@@ -22,6 +22,7 @@ from __future__ import annotations
 import logging
 import os
 import shutil
+import time
 from pathlib import Path
 from typing import List
 
@@ -45,8 +46,10 @@ DIRETORIO_CHROMA: Path = BASE_DIR / "chroma_db"
 NOME_COLECAO: str = "base_ejcm"
 MODELO_EMBEDDING: str = "models/gemini-embedding-001"
 
-CHUNK_SIZE: int = 1000
-CHUNK_OVERLAP: int = 200
+CHUNK_SIZE: int = 800
+CHUNK_OVERLAP: int = 150
+BATCH_SIZE: int = 5  # Processa embeddings em lotes pequenos
+DELAY_BETWEEN_BATCHES: float = 5.0  # Segundos entre lotes
 
 logging.basicConfig(
     level=logging.INFO,
@@ -190,12 +193,36 @@ def inicializar_banco_vetorial(
             persist_directory=str(diretorio_persistencia),
         )
 
-    vectordb = Chroma.from_documents(
-        documents=chunks,
-        embedding=embeddings,
-        collection_name=NOME_COLECAO,
-        persist_directory=str(diretorio_persistencia),
-    )
+    # Processa em lotes para evitar estourar quota da API
+    logger.info("Total de chunks: %d. Processando em lotes de %d...", 
+                len(chunks), BATCH_SIZE)
+    
+    vectordb = None
+    for i in range(0, len(chunks), BATCH_SIZE):
+        batch = chunks[i:i + BATCH_SIZE]
+        batch_num = (i // BATCH_SIZE) + 1
+        total_batches = (len(chunks) + BATCH_SIZE - 1) // BATCH_SIZE
+        
+        logger.info("Processando lote %d/%d (%d chunks)...", 
+                    batch_num, total_batches, len(batch))
+        
+        if vectordb is None:
+            # Primeiro lote: cria o banco
+            vectordb = Chroma.from_documents(
+                documents=batch,
+                embedding=embeddings,
+                collection_name=NOME_COLECAO,
+                persist_directory=str(diretorio_persistencia),
+            )
+        else:
+            # Lotes seguintes: adiciona ao banco existente
+            vectordb.add_documents(batch)
+        
+        # Delay entre lotes para respeitar rate limit (exceto no último)
+        if i + BATCH_SIZE < len(chunks):
+            logger.info("Aguardando %.1fs antes do próximo lote...", DELAY_BETWEEN_BATCHES)
+            time.sleep(DELAY_BETWEEN_BATCHES)
+    
     logger.info("Banco vetorial construído e persistido em %s",
                 diretorio_persistencia)
     return vectordb
