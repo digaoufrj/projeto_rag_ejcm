@@ -1,7 +1,7 @@
 """
 main.py
 -------
-Orquestrador do fluxo completo do sistema RAG-EJCM.
+Orquestrador do fluxo completo do sistema RAG-Empresa Júnior.
 
 Fluxo:
     1. Carrega personas (stakeholders simulados) de personas.json
@@ -43,7 +43,7 @@ DOCUMENTO_FINAL_MD = BASE_DIR / "requisitos_consolidados_3.md"
 
 DELAY_ENTRE_PERSONAS_S = 5  # rate-limit suave entre chamadas ao Gemini
 QUERY_RAG_PADRAO = (
-    "contexto institucional da EJCM, processos organizacionais, "
+    "contexto institucional da Empresa Júnior, processos organizacionais, "
     "gestão de projetos, membros e documentos"
 )
 
@@ -122,7 +122,7 @@ def carregar_requisitos_individuais(caminho: Path) -> dict:
 def parse_args() -> argparse.Namespace:
     """Define e processa argumentos de linha de comando."""
     parser = argparse.ArgumentParser(
-        description="Pipeline RAG-EJCM: personas → simulador → consolidador."
+        description="Pipeline RAG-Empresa Júnior: personas → simulador → consolidador."
     )
     parser.add_argument(
         "--skip-simulator",
@@ -156,14 +156,14 @@ def parse_args() -> argparse.Namespace:
 
 
 def main() -> None:
-    """Executa o pipeline RAG-EJCM.
+    """Executa o pipeline RAG-Empresa Júnior.
 
     Modos:
         * Padrão: personas → simulador → consolidador
         * --skip-simulator: carrega requisitos prontos → consolidador
     """
     args = parse_args()
-    logger.info("=== Iniciando pipeline RAG-EJCM ===")
+    logger.info("=== Iniciando pipeline RAG-Empresa Júnior ===")
 
     # 1) Requisitos por persona (gerados ou carregados)
     if args.skip_simulator:

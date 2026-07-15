@@ -1,4 +1,4 @@
-# Sistema RAG - EJCM
+# Sistema RAG - Empresa Júnior
 
 Módulo de Retrieval (Busca Vetorial) para sistema RAG usando ChromaDB e Google Gemini Embeddings.
 
@@ -11,8 +11,8 @@ Módulo de Retrieval (Busca Vetorial) para sistema RAG usando ChromaDB e Google 
 
 1. Clone o repositório:
 ```bash
-git clone https://github.com/SEU_USUARIO/projeto_rag_ejcm.git
-cd projeto_rag_ejcm
+git clone https://github.com/SEU_USUARIO/projeto_rag_empresa_junior.git
+cd projeto_rag_empresa_junior
 ```
 
 2. Crie e ative o ambiente virtual:
@@ -39,8 +39,8 @@ Obtenha sua chave em: https://aistudio.google.com/app/apikey
 ## 📁 Estrutura do Projeto
 
 ```
-projeto_rag_ejcm/
-├── base_conhecimento_ejcm/        # PDFs e TXTs da base de conhecimento
+projeto_rag_empresa_junior/
+├── base_conhecimento_empresa_junior/        # PDFs e TXTs da base de conhecimento
 ├── chroma_db/                     # Banco vetorial (gerado automaticamente)
 ├── agents/                        # Agentes LLM do pipeline
 │   ├── __init__.py
@@ -61,7 +61,7 @@ projeto_rag_ejcm/
           ↓
     [Simulador] x N personas → requisitos individuais por persona
           ↓
-    [Consolidador] ← contexto do RAG (base de conhecimento da EJCM)
+    [Consolidador] ← contexto do RAG (base de conhecimento da Empresa Júnior)
           ↓
     requisitos_consolidados.md
 ```
@@ -134,16 +134,16 @@ python rag_retriever.py
 ### Integração no seu código
 
 ```python
-from rag_retriever import buscar_contexto_ejcm
+from rag_retriever import buscar_contexto_empresa_junior
 
 # Busca os 3 trechos mais relevantes
-contexto = buscar_contexto_ejcm("Qual o horário de funcionamento?", top_k=3)
+contexto = buscar_contexto_empresa_junior("Qual o horário de funcionamento?", top_k=3)
 print(contexto)
 ```
 
 ## 📝 Adicionando Documentos
 
-1. Coloque arquivos `.pdf` ou `.txt` na pasta `base_conhecimento_ejcm/`
+1. Coloque arquivos `.pdf` ou `.txt` na pasta `base_conhecimento_empresa_junior/`
 2. Delete a pasta `chroma_db/` (se existir)
 3. Execute `python rag_retriever.py` para reindexar
 

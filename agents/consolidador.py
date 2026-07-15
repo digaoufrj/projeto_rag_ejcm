@@ -20,7 +20,7 @@ from dotenv import load_dotenv
 from google import genai
 from google.genai import types
 
-from rag_retriever import buscar_contexto_ejcm
+from rag_retriever import buscar_contexto_empresa_junior
 
 load_dotenv()
 
@@ -96,7 +96,7 @@ Saída esperada:
         if dominio_sistema is None:
             if query_rag:
                 logger.info("Buscando contexto no RAG com query: %r", query_rag)
-                dominio_sistema = buscar_contexto_ejcm(query_rag, top_k=top_k)
+                dominio_sistema = buscar_contexto_empresa_junior(query_rag, top_k=top_k)
             else:
                 dominio_sistema = ""
 

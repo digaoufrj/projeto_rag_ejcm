@@ -1,8 +1,8 @@
-# Documento de Consolidação de Requisitos — Sistema de Gestão Integrada (EJCM)
+# Documento de Consolidação de Requisitos — Sistema de Gestão Integrada (Empresa Júnior)
 
-Este documento apresenta a especificação consolidada de Requisitos Funcionais (RF) e Requisitos Não Funcionais (RNF) para o sistema de gestão integrada da **EJCM (Empresa Júnior de Consultoria em Microinformática)**. 
+Este documento apresenta a especificação consolidada de Requisitos Funcionais (RF) e Requisitos Não Funcionais (RNF) para o sistema de gestão integrada da **Empresa Júnior (Empresa Júnior de Consultoria em Microinformática)**. 
 
-A consolidação unifica as visões de múltiplos stakeholders (Gerente de Projetos, Assessora de Vendas, Desenvolvedora Front-end, Assessora de Gestão de Pessoas e Líderes Técnicos), eliminando redundâncias, resolvendo conflitos de escopo e integrando as regras de negócio extraídas dos documentos institucionais da EJCM (Código de Ética e Estatuto).
+A consolidação unifica as visões de múltiplos stakeholders (Gerente de Projetos, Assessora de Vendas, Desenvolvedora Front-end, Assessora de Gestão de Pessoas e Líderes Técnicos), eliminando redundâncias, resolvendo conflitos de escopo e integrando as regras de negócio extraídas dos documentos institucionais da Empresa Júnior (Código de Ética e Estatuto).
 
 ---
 
@@ -11,7 +11,7 @@ A consolidação unifica as visões de múltiplos stakeholders (Gerente de Proje
 Os requisitos funcionais foram organizados em módulos lógicos para refletir a estrutura operacional da empresa júnior.
 
 ### Módulo 1: Plataforma, Segurança e Colaboração (Core)
-*   **RF01 - Autenticação Unificada (Single Sign-On - SSO):** O sistema deve permitir o acesso de todos os usuários por meio de uma única credencial de login integrada à conta institucional do Google Workspace da EJCM.
+*   **RF01 - Autenticação Unificada (Single Sign-On - SSO):** O sistema deve permitir o acesso de todos os usuários por meio de uma única credencial de login integrada à conta institucional do Google Workspace da Empresa Júnior.
 *   **RF02 - Controle de Acesso Baseado em Perfis (RBAC):** O sistema deve restringir a visualização, criação, edição e exclusão de dados de acordo com o perfil do usuário (Ex: Administrador, Diretoria, Assessoria de GP, Assessoria de Vendas, Gerente de Projetos, Líder Técnico, Membro, Trainee e Cliente).
     *   *Regra de Negócio:* Clientes só podem visualizar informações autorizadas de seus próprios projetos. Dados sensíveis de membros (feedbacks, avaliações, dados pessoais) são restritos à GP e Diretoria.
 *   **RF03 - Registro de Auditoria (Logs de Sistema):** O sistema deve registrar de forma imutável todas as ações de criação, leitura, alteração e exclusão (CRUD) realizadas sobre dados sensíveis (dados de membros, propostas comerciais, contratos e requisitos de projetos), identificando o usuário responsável, data e hora.
@@ -32,9 +32,9 @@ Os requisitos funcionais foram organizados em módulos lógicos para refletir a 
 *   **RF14 - Gestão de Sprints e Backlog:** O sistema deve permitir que o Gerente de Projetos e o Líder Técnico criem, planejem e gerenciem sprints, incluindo a criação de um backlog de produto, estimativa de esforço, priorização de demandas e acompanhamento visual por meio de um quadro Kanban.
 *   **RF15 - Distribuição e Acompanhamento de Tarefas:** O sistema deve permitir a criação de tarefas, atribuição de responsáveis (membros do squad), definição de prazos, níveis de prioridade e checklist de subtarefas.
 *   **RF16 - Registro de Tempo de Execução (Timesheet):** O sistema deve possuir uma funcionalidade integrada para registrar o tempo gasto pelos membros do squad em cada tarefa, permitindo a extração de relatórios de produtividade e o registro do tempo real de execução associado à tecnologia utilizada.
-*   **RF17 - Alocação e Gestão de Squads:** O sistema deve permitir alocar membros da EJCM a squads específicos de projetos, definindo seus papéis (Ex: Desenvolvedor, Designer, Líder Técnico, Gerente de Projetos).
+*   **RF17 - Alocação e Gestão de Squads:** O sistema deve permitir alocar membros da Empresa Júnior a squads específicos de projetos, definindo seus papéis (Ex: Desenvolvedor, Designer, Líder Técnico, Gerente de Projetos).
 *   **RF18 - Registro de Decisões do Cliente (Rastreabilidade):** O sistema deve possuir um log específico para registrar decisões estratégicas, alterações de escopo e aprovações formais realizadas junto ao cliente, garantindo um histórico imutável para futuras consultas.
-*   **RF19 - Mapeamento do Ciclo de Vida do Projeto (Fases da EJCM):** O sistema deve categorizar e acompanhar o progresso do projeto de acordo com as etapas de entrega da EJCM: *Pesquisa, Prototipação, Desenvolvimento, Entrega* e *Suporte*.
+*   **RF19 - Mapeamento do Ciclo de Vida do Projeto (Fases da Empresa Júnior):** O sistema deve categorizar e acompanhar o progresso do projeto de acordo com as etapas de entrega da Empresa Júnior: *Pesquisa, Prototipação, Desenvolvimento, Entrega* e *Suporte*.
 
 ### Módulo 4: Engenharia de Software e Gestão do Conhecimento
 *   **RF20 - Centralização de Repositórios e Artefatos Técnicos:** O sistema deve permitir vincular repositórios de código externos (GitHub/GitLab) e links de design (Figma) diretamente ao painel do projeto correspondente.
@@ -79,7 +79,7 @@ Os requisitos não funcionais definem os critérios de qualidade, restrições t
 ### Usabilidade e Interface
 *   **RNF06 - Compatibilidade Multiplataforma e Responsividade:** O sistema deve ser uma aplicação baseada na web (SaaS) responsiva, compatível com os principais navegadores do mercado (Chrome, Firefox, Safari, Edge) e otimizada para uso em computadores pessoais (desktops e notebooks) de diferentes sistemas operacionais (Windows, macOS e Linux).
 *   **RNF07 - Usabilidade e Baixa Fricção:** A interface do sistema deve ser intuitiva, projetada para minimizar cliques. O processo para criar, editar ou salvar um documento técnico ou ata não deve exigir mais do que 3 cliques. O editor de documentação deve suportar formatação em Markdown e atalhos de teclado semelhantes a ferramentas de mercado (Notion/Google Docs).
-*   **RNF08 - Facilidade de Aprendizado (Curva de Aprendizado):** O sistema deve possuir uma interface intuitiva que permita que novos membros da EJCM consigam operar funções básicas de cadastro, consulta e atualização de tarefas com um treinamento básico de, no máximo, 20 minutos.
+*   **RNF08 - Facilidade de Aprendizado (Curva de Aprendizado):** O sistema deve possuir uma interface intuitiva que permita que novos membros da Empresa Júnior consigam operar funções básicas de cadastro, consulta e atualização de tarefas com um treinamento básico de, no máximo, 20 minutos.
 
 ### Confiabilidade, Disponibilidade e Recuperação
 *   **RNF09 - Disponibilidade (Uptime):** O sistema deve apresentar uma taxa de disponibilidade mínima de 99,5% (uptime), operando de forma contínua 24/7.

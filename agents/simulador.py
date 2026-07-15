@@ -4,7 +4,7 @@ agents/simulador.py
 Agente Simulador de Stakeholders.
 
 Recebe a descrição de uma persona (stakeholder simulado) e gera os
-requisitos de software correspondentes, respeitando o contexto da EJCM.
+requisitos de software correspondentes, respeitando o contexto da Empresa Júnior.
 
 Autoria original: Giovanna / Cássio (adaptado para integrar ao projeto).
 """
@@ -33,10 +33,10 @@ Você é um agente simulador de stakeholders para processos de Engenharia de Req
 Sua função é interpretar fielmente a persona descrita pelo usuário e gerar requisitos de software que representem as necessidades, expectativas e restrições desse stakeholder.
 
 ## Contexto
-A organização é a Empresa Júnior de Consultoria e Microinformática (EJCM).
-Será desenvolvido um sistema integrado e centralizado para apoiar a gestão interna da EJCM. O sistema deverá permitir o gerenciamento de projetos, tarefas, membros, documentos e processos organizacionais.
+A organização é uma Empresa Júnior de Consultoria e Microinformática.
+Será desenvolvido um sistema integrado e centralizado para apoiar a gestão interna da Empresa Júnior. O sistema deverá permitir o gerenciamento de projetos, tarefas, membros, documentos e processos organizacionais.
 
-A EJCM desenvolve soluções digitais seguindo as seguintes etapas:
+A Empresa Júnior desenvolve soluções digitais seguindo as seguintes etapas:
 - Pesquisa: levantamento e validação das necessidades dos clientes por meio de pesquisas de UX.
 - Prototipação: criação de protótipos interativos das soluções.
 - Desenvolvimento: implementação de aplicações web e móveis com foco em desempenho e escalabilidade.

@@ -1,6 +1,6 @@
-# Documento de Consolidação de Requisitos — Sistema de Gestão Integrada EJCM
+# Documento de Consolidação de Requisitos — Sistema de Gestão Integrada Empresa Júnior
 
-Este documento apresenta a especificação consolidada de Requisitos Funcionais (RF) e Requisitos Não Funcionais (RNF) para o sistema de gestão da **EJCM (Empresa Júnior de Consultoria em Microinformática)**. 
+Este documento apresenta a especificação consolidada de Requisitos Funcionais (RF) e Requisitos Não Funcionais (RNF) para o sistema de gestão da **Empresa Júnior (Empresa Júnior de Consultoria em Microinformática)**. 
 
 A consolidação unifica as visões de múltiplos stakeholders (Gerente de Projetos, Assessoria de Vendas, Desenvolvedora Front-end, Assessoria de Gestão de Pessoas e Líderes Técnicos) e alinha as funcionalidades às normas institucionais contidas no **Código de Ética** e no **Estatuto** da organização (Base de Conhecimento).
 
@@ -15,13 +15,13 @@ A consolidação unifica as visões de múltiplos stakeholders (Gerente de Proje
 *   **RF04 - Repositório de Propostas Comerciais e Contratos:** O sistema deve permitir o upload, armazenamento, organização e controle de versionamento de propostas comerciais e contratos em formato digital vinculados ao respectivo cliente, permitindo a recuperação de versões anteriores.
 *   **RF05 - Transição Automática de Vendas para Projetos:** Ao marcar um lead como "Fechado (Ganho)", o sistema deve converter automaticamente as informações comerciais em um novo projeto no módulo de gerenciamento de projetos, preservando todo o histórico coletado e os documentos anexados.
 *   **RF06 - Automação de Follow-up:** O sistema deve permitir a configuração de réguas de automação para disparar e-mails de acompanhamento (follow-up) ou criar tarefas automáticas para os assessores quando um lead permanecer inativo por um período pré-determinado em uma etapa do funil.
-*   **RF07 - Dashboard de Desempenho Comercial:** O sistema deve gerar relatórios visuais e gráficos com indicadores de desempenho (KPIs), incluindo taxa de conversão do funil, tempo médio de fechamento, volume de novos leads e progresso em relação às metas anuais da EJCM.
+*   **RF07 - Dashboard de Desempenho Comercial:** O sistema deve gerar relatórios visuais e gráficos com indicadores de desempenho (KPIs), incluindo taxa de conversão do funil, tempo médio de fechamento, volume de novos leads e progresso em relação às metas anuais da Empresa Júnior.
 
 ### 1.2. Módulo de Gestão de Projetos e Engenharia
 *   **RF08 - Dashboard Unificado de Projetos:** O sistema deve fornecer uma visão consolidada de cada projeto ativo, exibindo em uma única tela o status atual, o progresso da sprint, os membros alocados, os documentos recentes e os próximos marcos (*milestones*).
 *   **RF09 - Gestão de Sprints e Backlog:** O sistema deve permitir a criação, planejamento e gerenciamento de sprints, incluindo a criação de um backlog de produto, estimativa de esforço, priorização de demandas e acompanhamento visual do progresso por meio de um quadro Kanban.
-*   **RF10 - Mapeamento do Ciclo de Vida do Projeto (Fases da EJCM):** O sistema deve permitir categorizar e acompanhar o progresso das tarefas e do projeto de acordo com as etapas padrão de entrega da EJCM: *Pesquisa, Prototipação, Desenvolvimento* e *Entrega e Suporte*.
-*   **RF11 - Distribuição de Tarefas e Alocação de Squads:** O sistema deve permitir a criação de tarefas (com prazos, prioridades e checklists), atribuição de responsáveis e alocação de membros da EJCM a squads específicos de projetos, definindo seus papéis (Ex: Desenvolvedor, Designer, Líder Técnico).
+*   **RF10 - Mapeamento do Ciclo de Vida do Projeto (Fases da Empresa Júnior):** O sistema deve permitir categorizar e acompanhar o progresso das tarefas e do projeto de acordo com as etapas padrão de entrega da Empresa Júnior: *Pesquisa, Prototipação, Desenvolvimento* e *Entrega e Suporte*.
+*   **RF11 - Distribuição de Tarefas e Alocação de Squads:** O sistema deve permitir a criação de tarefas (com prazos, prioridades e checklists), atribuição de responsáveis e alocação de membros da Empresa Júnior a squads específicos de projetos, definindo seus papéis (Ex: Desenvolvedor, Designer, Líder Técnico).
 *   **RF12 - Registro de Tempo de Execução (Timesheet Integrado):** O sistema deve possuir uma funcionalidade integrada para registrar o tempo gasto pelos membros do squad em cada tarefa (com início/fim ou inserção manual), permitindo a extração de relatórios de produtividade e o registro do histórico de esforço por tecnologia e complexidade.
 *   **RF13 - Módulo de Estimativa Baseado em Histórico:** O sistema deve fornecer uma ferramenta de busca e filtragem que permita ao Líder Técnico consultar tarefas semelhantes de projetos anteriores e seus respectivos tempos de execução para apoiar a estimativa de novos cronogramas.
 *   **RF14 - Cadastro, Versionamento e Rastreabilidade de Requisitos:** O sistema deve permitir o levantamento, especificação e versionamento dos requisitos do projeto (funcionais e não funcionais), mantendo o histórico de alterações com justificativa e permitindo associá-los diretamente a tarefas do backlog, protótipos e entregáveis.
@@ -52,7 +52,7 @@ A consolidação unifica as visões de múltiplos stakeholders (Gerente de Proje
 
 ### 1.5. Administração do Sistema e Segurança
 *   **RF33 - Controle de Acesso Baseado em Perfis (RBAC):** O sistema deve restringir a visualização, criação, edição e exclusão de dados de acordo com o perfil do usuário (Ex: Administrador, Diretoria, Assessora de GP, Líder Técnico, Membro, Trainee, Cliente). Clientes devem visualizar apenas informações autorizadas de seus próprios projetos.
-*   **RF34 - Autenticação Unificada (Single Sign-On - SSO):** O sistema deve permitir o acesso de todos os usuários por meio de integração com a conta institucional do Google Workspace da EJCM.
+*   **RF34 - Autenticação Unificada (Single Sign-On - SSO):** O sistema deve permitir o acesso de todos os usuários por meio de integração com a conta institucional do Google Workspace da Empresa Júnior.
 *   **RF35 - Registro de Auditoria (Logs do Sistema):** O sistema deve registrar um histórico de auditoria imutável contendo as ações de criação, alteração e exclusão de dados sensíveis (requisitos aprovados, baselines, dados de clientes, propostas, contratos e cadastros de membros), identificando o usuário, data/hora e o impacto da ação.
 
 ---

@@ -1,13 +1,13 @@
 """
 rag_retriever.py
 ----------------
-Módulo de Retrieval (Busca Vetorial) do sistema RAG da EJCM.
+Módulo de Retrieval (Busca Vetorial) do sistema RAG da Empresa Júnior.
 
 Responsabilidades:
     * Carregar e fatiar documentos (PDF/TXT) da base de conhecimento.
     * Gerar / persistir embeddings em um ChromaDB local
-      (modelo `models/text-embedding-004` via Google Generative AI).
-    * Expor `buscar_contexto_ejcm(query, top_k)` para o Agente Gerador (LLM).
+      (modelo `models/gemini-embedding-001` via Google Generative AI).
+    * Expor `buscar_contexto_empresa_junior(query, top_k)` para o Agente Gerador (LLM).
 
 Este módulo NÃO instancia nenhum modelo de geração de texto.
 Apenas pipeline de embeddings + busca vetorial.
@@ -40,10 +40,10 @@ load_dotenv()
 # ---------------------------------------------------------------------------
 
 BASE_DIR: Path = Path(__file__).parent.resolve()
-DIRETORIO_DOCUMENTOS: Path = BASE_DIR / "base_conhecimento_ejcm"
+DIRETORIO_DOCUMENTOS: Path = BASE_DIR / "base_conhecimento_empresa_junior"
 DIRETORIO_CHROMA: Path = BASE_DIR / "chroma_db"
 
-NOME_COLECAO: str = "base_ejcm"
+NOME_COLECAO: str = "base_empresa_junior"
 MODELO_EMBEDDING: str = "models/gemini-embedding-001"
 
 CHUNK_SIZE: int = 800
@@ -68,8 +68,8 @@ def carregar_e_fatiar_documentos(
 ) -> List[Document]:
     """Lê todos os PDFs e TXTs do diretório informado e os divide em chunks.
 
-    Utiliza `RecursiveCharacterTextSplitter` com `chunk_size=1000`
-    e `chunk_overlap=200`. Adiciona o nome do arquivo de origem nos
+    Utiliza `RecursiveCharacterTextSplitter` com `chunk_size=800`
+    e `chunk_overlap=150`. Adiciona o nome do arquivo de origem nos
     metadados de cada chunk (chave `source`).
 
     Args:
@@ -232,7 +232,7 @@ def inicializar_banco_vetorial(
 # Função pública de busca
 # ---------------------------------------------------------------------------
 
-def buscar_contexto_ejcm(query: str, top_k: int = 3) -> str:
+def buscar_contexto_empresa_junior(query: str, top_k: int = 3) -> str:
     """Busca no banco vetorial os `top_k` trechos mais relevantes para `query`.
 
     Retorna uma string única, formatada, com os trechos separados e
@@ -248,7 +248,7 @@ def buscar_contexto_ejcm(query: str, top_k: int = 3) -> str:
         ou string vazia em caso de falha.
     """
     if not query or not query.strip():
-        logger.warning("Query vazia recebida em buscar_contexto_ejcm.")
+        logger.warning("Query vazia recebida em buscar_contexto_empresa_junior.")
         return ""
 
     try:
@@ -286,7 +286,7 @@ if __name__ == "__main__":
     DIRETORIO_DOCUMENTOS.mkdir(parents=True, exist_ok=True)
 
     print("=" * 70)
-    print(" Teste do módulo de Retrieval - EJCM RAG ")
+    print(" Teste do módulo de Retrieval - Empresa Júnior RAG ")
     print("=" * 70)
     print(f"Pasta de documentos: {DIRETORIO_DOCUMENTOS}")
     print(f"Pasta do ChromaDB : {DIRETORIO_CHROMA}")
@@ -302,7 +302,7 @@ if __name__ == "__main__":
     if force_rebuild:
         print("⚠️  Modo REBUILD ativado: banco será reconstruído do zero.\n")
 
-    query_teste = "O que é a EJCM e quais serviços ela oferece?"
+    query_teste = "O que é a Empresa Júnior e quais serviços ela oferece?"
     print(f"Consulta de teste: {query_teste!r}\n")
 
     vectordb = inicializar_banco_vetorial(force_rebuild=force_rebuild)

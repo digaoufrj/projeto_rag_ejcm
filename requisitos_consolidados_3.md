@@ -1,8 +1,8 @@
-# Documento de Consolidação de Requisitos — Sistema Integrado de Gestão EJCM
+# Documento de Consolidação de Requisitos — Sistema Integrado de Gestão Empresa Júnior
 
-Este documento apresenta a especificação consolidada de Requisitos Funcionais (RF) e Requisitos Não Funcionais (RNF) para o Sistema Integrado de Gestão da **EJCM (Empresa Júnior de Consultoria em Microinformática)**. 
+Este documento apresenta a especificação consolidada de Requisitos Funcionais (RF) e Requisitos Não Funcionais (RNF) para o Sistema Integrado de Gestão da **Empresa Júnior (Empresa Júnior de Consultoria em Microinformática)**. 
 
-A consolidação unifica as visões de múltiplos stakeholders (Gerente de Projetos, Assessora de Vendas, Desenvolvedora Front-End, Líderes Técnicos e Assessoras de Gestão de Pessoas), reconciliando redundâncias e alinhando as funcionalidades às normas do **Código de Ética** e do **Estatuto da EJCM**.
+A consolidação unifica as visões de múltiplos stakeholders (Gerente de Projetos, Assessora de Vendas, Desenvolvedora Front-End, Líderes Técnicos e Assessoras de Gestão de Pessoas), reconciliando redundâncias e alinhando as funcionalidades às normas do **Código de Ética** e do **Estatuto da Empresa Júnior**.
 
 ---
 
@@ -13,14 +13,14 @@ A consolidação unifica as visões de múltiplos stakeholders (Gerente de Proje
 *   **RF02 - Pipeline de Vendas Visual (Kanban):** O sistema deve fornecer um quadro Kanban para o acompanhamento do funil de vendas, permitindo mover os leads entre as etapas de: *Prospecção, Primeiro Contato, Diagnóstico, Proposta, Negociação, Fechado (Ganho)* e *Perdido*.
 *   **RF03 - Automação de Follow-up:** O sistema deve permitir a configuração de réguas de automação para disparar e-mails de acompanhamento ou gerar tarefas automáticas para os assessores quando um lead permanecer inativo por um período pré-determinado em uma etapa do funil.
 *   **RF04 - Transição Automática para Projetos:** Ao marcar um lead como "Fechado (Ganho)", o sistema deve converter automaticamente as informações comerciais em um novo projeto no módulo de gerenciamento de projetos, preservando o histórico de interações, propostas e contratos.
-*   **RF05 - Dashboard de Desempenho Comercial:** O sistema deve gerar relatórios visuais com indicadores (KPIs) de vendas, incluindo taxa de conversão do funil, tempo médio de fechamento, volume de novos leads e progresso em relação às metas anuais da EJCM.
+*   **RF05 - Dashboard de Desempenho Comercial:** O sistema deve gerar relatórios visuais com indicadores (KPIs) de vendas, incluindo taxa de conversão do funil, tempo médio de fechamento, volume de novos leads e progresso em relação às metas anuais da Empresa Júnior.
 
 ### 1.2. Módulo de Gestão de Projetos e Sprints
 *   **RF06 - Dashboard Unificado de Projetos:** O sistema deve fornecer uma visão consolidada de cada projeto ativo, exibindo em uma única tela o status atual, o progresso da sprint, os membros alocados (squad), documentos recentes e os próximos marcos (*milestones*).
 *   **RF07 - Gestão de Sprints e Backlog:** O sistema deve permitir a criação, planejamento e gerenciamento de sprints, incluindo a manutenção de um backlog de produto, estimativa de esforço, priorização de demandas e acompanhamento visual via quadro Kanban.
-*   **RF08 - Distribuição de Tarefas e Alocação de Squads:** O sistema deve permitir a criação de tarefas com atribuição de responsáveis, prazos, níveis de prioridade e checklists. Deve permitir também a alocação de membros da EJCM a squads específicos, definindo seus papéis (Ex: Desenvolvedor, Designer, Líder Técnico).
+*   **RF08 - Distribuição de Tarefas e Alocação de Squads:** O sistema deve permitir a criação de tarefas com atribuição de responsáveis, prazos, níveis de prioridade e checklists. Deve permitir também a alocação de membros da Empresa Júnior a squads específicos, definindo seus papéis (Ex: Desenvolvedor, Designer, Líder Técnico).
 *   **RF09 - Registro de Tempo de Execução (Timesheet):** O sistema deve possuir uma funcionalidade integrada para registrar o tempo gasto pelos membros em cada tarefa, permitindo a extração de relatórios de produtividade e o registro do tempo real de execução associado à tecnologia e complexidade da tarefa.
-*   **RF10 - Mapeamento do Ciclo de Vida do Projeto:** O sistema deve categorizar e acompanhar o progresso dos projetos de acordo com as etapas padrão da EJCM: *Pesquisa, Prototipação, Desenvolvimento, Entrega* e *Suporte*.
+*   **RF10 - Mapeamento do Ciclo de Vida do Projeto:** O sistema deve categorizar e acompanhar o progresso dos projetos de acordo com as etapas padrão da Empresa Júnior: *Pesquisa, Prototipação, Desenvolvimento, Entrega* e *Suporte*.
 *   **RF11 - Controle de Linha de Base (Baseline) do Cronograma:** O sistema deve permitir salvar a versão inicial do cronograma (baseline) e registrar desvios de prazos ao longo do ciclo de vida do projeto, exibindo alertas visuais em caso de atrasos.
 
 ### 1.3. Módulo de Gestão Técnica, Requisitos e Conhecimento
@@ -37,7 +37,7 @@ A consolidação unifica as visões de múltiplos stakeholders (Gerente de Proje
 *   **RF20 - Registro de Avaliações, Feedbacks e Histórico de Movimentação:** O sistema deve permitir o agendamento, preenchimento e armazenamento de avaliações de desempenho periódicas e feedbacks formais, além de registrar automaticamente o histórico cronológico de promoções, mudanças de cargo, trocas de assessoria e desligamentos.
 *   **RF21 - Monitor de Presença e Sanções (Código de Ética):** O sistema deve permitir o registro de presença em Reuniões Gerais (RG) e Assembleias Gerais. 
     *   O sistema deve emitir um alerta automático à Diretoria de Gestão de Pessoas quando um membro acumular **3 ausências recorrentes sem justificativa válida em RGs**.
-    *   O sistema deve emitir um alerta imediato de processo de desligamento caso um membro falte a **uma Assembleia Geral sem justificativa válida**, em conformidade com o Código de Ética da EJCM.
+    *   O sistema deve emitir um alerta imediato de processo de desligamento caso um membro falte a **uma Assembleia Geral sem justificativa válida**, em conformidade com o Código de Ética da Empresa Júnior.
 *   **RF22 - Gestão de Pesquisas de Clima e Satisfação:** O sistema deve permitir a criação, agendamento e coleta de respostas de pesquisas de opinião, clima organizacional e satisfação interna, suportando formatos anônimos ou identificados.
 *   **RF23 - Painel de Indicadores de GP (Dashboard):** O sistema deve disponibilizar um painel visual com gráficos e métricas consolidadas sobre clima organizacional, taxa de engajamento, turnover, absenteísmo e pendências de feedbacks/avaliações.
 *   **RF24 - Exclusão Definitiva de Dados Sensíveis (Direito ao Esquecimento):** Em conformidade com a LGPD, o sistema deve permitir a exclusão permanente de dados pessoais sensíveis de ex-membros mediante solicitação, mantendo apenas dados históricos anonimizados para fins estatísticos.
@@ -51,7 +51,7 @@ A consolidação unifica as visões de múltiplos stakeholders (Gerente de Proje
 
 ### 1.6. Segurança, Controle de Acesso e Auditoria
 *   **RF30 - Controle de Acesso Baseado em Perfis (RBAC):** O sistema deve restringir a visualização e edição de dados de acordo com perfis de acesso parametrizados (Ex: Administrador, Diretoria, Assessora de GP, Gerente de Projetos, Líder Técnico, Membro, Trainee e Cliente). Clientes devem visualizar apenas informações autorizadas de seus respectivos projetos.
-*   **RF31 - Autenticação Unificada (SSO):** O sistema deve permitir o acesso de todos os usuários por meio de integração com a conta institucional do Google Workspace da EJCM.
+*   **RF31 - Autenticação Unificada (SSO):** O sistema deve permitir o acesso de todos os usuários por meio de integração com a conta institucional do Google Workspace da Empresa Júnior.
 *   **RF32 - Registro de Auditoria (Logs):** O sistema deve registrar um histórico de auditoria imutável contendo as ações de criação, leitura, alteração e exclusão (CRUD) de dados sensíveis (dados de membros, propostas, contratos, requisitos aprovados e baselines de cronogramas), identificando o usuário, data e hora da ação.
 
 ---
